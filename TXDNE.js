@@ -339,7 +339,6 @@ function waifuSetup() {
 		*/
   let offset = -1 * Math.round(Math.random() * TXDNE.waifuSize);
   adjustGridOffsetBy(offset, offset);
-  TXDNE.waifuQuilt.redirectChance = 100001;
 
   document
     .querySelector("head")
@@ -353,21 +352,12 @@ function waifuSetup() {
 
   window.waifuQuiltPanTickFunction = () => {
     var direction;
-    if (rollDie(100000) < TXDNE.waifuQuilt.redirectChance) {
-      if (typeof TXDNE.waifuQuilt.direction != "undefined") {
-        direction =
-          (TXDNE.waifuQuilt.direction +
-            (Math.PI * ((rollDie(5) - 3) * 45)) / 180.0) %
-          (2 * Math.PI);
-      } else {
-        direction = (Math.PI * (rollDie(8) * 45)) / 180.0;
-      }
-      TXDNE.waifuQuilt.direction = direction;
-      TXDNE.waifuQuilt.redirectChance = 1;
-    } else {
-      direction = TXDNE.waifuQuilt.direction;
-      TXDNE.waifuQuilt.redirectChance++;
-    }
+    // 2 is up
+    // 6 is  down
+
+    direction = (Math.PI * (6 * 45)) / 180.0;
+
+    TXDNE.waifuQuilt.direction = direction;
 
     TXDNE.pendingXMovement +=
       TXDNE.panTickDistance * Math.round(Math.cos(direction));
