@@ -161,6 +161,7 @@ h1 a:hover {
   top: calc(-0.25 * var(--waifu-height));
   left: calc(-0.25 * var(--waifu-width));
 }
+/* TODO: greyscale 0.9 for dead ppl */
 .waifu {
   width: var(--waifu-width);
   height: var(--waifu-height);

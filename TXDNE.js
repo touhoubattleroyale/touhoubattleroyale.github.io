@@ -28,7 +28,6 @@ function Æ(x) {
 
 //	This function is called when a waifu box needs to be loaded.
 function loadWaifu(waifuLink) {
-  console.log("loading waifu", waifuLink);
   waifuLink.dataset.id = getRandomWaifuID().toString();
 
   waifuLink.href = `${TXDNE.waifuSourceURLBase}${waifuLink.dataset.id}.${TXDNE.waifuSourceURLFileExtension}`;
@@ -52,7 +51,7 @@ function adjustGridOffsetBy(xOffset, yOffset) {
 
 //	Recompute grid parameters.
 function recomputeWaifuQuiltParameters() {
-  let waifusAcross = Math.floor(1 / TXDNE.waifuX) + 2;
+  let waifusAcross = Math.floor(1 / TXDNE.waifuX) + 1;
   let waifusDown = Math.floor(window.innerHeight / TXDNE.waifuY) + 2;
 
   TXDNE.waifusAcross = Math.max(TXDNE.waifusAcross || 0, waifusAcross);
