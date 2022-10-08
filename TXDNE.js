@@ -28,23 +28,13 @@ function Æ(x) {
 
 //	This function is called when a waifu box needs to be loaded.
 function loadWaifu(waifuLink) {
+  console.log("loading waifu", waifuLink);
   waifuLink.dataset.id = getRandomWaifuID().toString();
-  if (TXDNE.leftPadWaifuIDsWithZeroes)
-    waifuLink.dataset.id = waifuLink.dataset.id.padStart(
-      `${TXDNE.waifuSetSize}`.length - 1,
-      "0"
-    );
 
-  // handling of checkbox to change image hrefs but not image src
-  if (typeof TXDNE.special_href != "undefined") {
-    waifuLink.href = `${TXDNE.special_href}${waifuLink.dataset.id}`;
-    normal_href = `${TXDNE.waifuSourceURLBase}${waifuLink.dataset.id}.${TXDNE.waifuSourceURLFileExtension}`;
-    waifuLink.querySelector("img").src = normal_href;
-  } else {
-    waifuLink.href = `${TXDNE.waifuSourceURLBase}${waifuLink.dataset.id}.${TXDNE.waifuSourceURLFileExtension}`;
-    waifuLink.querySelector("img").src = waifuLink.href;
-  }
+  waifuLink.href = `${TXDNE.waifuSourceURLBase}${waifuLink.dataset.id}.${TXDNE.waifuSourceURLFileExtension}`;
+  waifuLink.querySelector("img").src = waifuLink.href;
 }
+
 function rollDie(dieSize) {
   return 1 + Math.floor(Math.random() * dieSize);
 }
@@ -142,11 +132,13 @@ function addColumn(where) {
       where == "right"
         ? TXDNE.waifuQuilt.gridXOrigin + TXDNE.waifusAcross
         : TXDNE.waifuQuilt.gridXOrigin - 1;
+    if (newWaifuLink.dataset.gridPositionX !== 0) continue;
     newWaifuLink.dataset.gridPositionY = k + TXDNE.waifuQuilt.gridYOrigin;
     newWaifuLink.style.left =
       newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
     newWaifuLink.style.top =
       newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
+    // TODO: not that createWaifu might not actually create the waifu it might die early, so loadWaifu needs to specify who got created in the no repeats list
     loadWaifu(newWaifuLink);
     TXDNE.waifuQuilt.appendChild(newWaifuLink);
   }
