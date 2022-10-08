@@ -121,10 +121,10 @@ function createWaifu() {
       "#waifu-hover-adjust-style"
     );
     let waifuHoverAdjust = {
-      top: atEdge.top ? "calc(var(--waifu-size) + 1px)" : "unset",
-      right: atEdge.right ? "calc(var(--waifu-size) + 1px)" : "unset",
-      bottom: atEdge.bottom ? "calc(var(--waifu-size) + 1px)" : "unset",
-      left: atEdge.left ? "calc(var(--waifu-size) + 1px)" : "unset",
+      top: atEdge.top ? "calc(var(--waifu-height) + 1px)" : "unset",
+      right: atEdge.right ? "calc(var(--waifu-width) + 1px)" : "unset",
+      bottom: atEdge.bottom ? "calc(var(--waifu-height) + 1px)" : "unset",
+      left: atEdge.left ? "calc(var(--waifu-width) + 1px)" : "unset",
     };
     waifuHoverAdjustStyle.innerHTML = `
 			.waifu-link[data-grid-position-x='${event.target.dataset.gridPositionX}'][data-grid-position-y='${event.target.dataset.gridPositionY}']:hover .waifu,
