@@ -59,22 +59,22 @@ function adjustGridOffsetBy(xOffset, yOffset) {
   }, ${TXDNE.waifuQuilt.offsetY + "px"})`;
 }
 
-function alterWaifuURL(new_psi) {
-  // reload all waifus on the page if we change the psi value
-  var images = document.getElementsByTagName("img");
-  for (var i = 0; i < images.length; i++) {
-    old_image = images[i].src;
-    new_image = old_image.replace(/psi-.../, "psi-" + new_psi);
-    images[i].src = new_image;
-    // if we are set to use slider.html
-    if (typeof TXDNE.special_href != "undefined") {
-      data_id = images[i].parentElement.attributes["data-id"].value;
-      images[i].offsetParent.href = `${TXDNE.special_href}${data_id}`;
-    } else {
-      images[i].offsetParent.href = new_image;
-    }
-  }
-}
+// function alterWaifuURL(new_psi) {
+//   // reload all waifus on the page if we change the psi value
+//   var images = document.getElementsByTagName("img");
+//   for (var i = 0; i < images.length; i++) {
+//     old_image = images[i].src;
+//     new_image = old_image.replace(/psi-.../, "psi-" + new_psi);
+//     images[i].src = new_image;
+//     // if we are set to use slider.html
+//     if (typeof TXDNE.special_href != "undefined") {
+//       data_id = images[i].parentElement.attributes["data-id"].value;
+//       images[i].offsetParent.href = `${TXDNE.special_href}${data_id}`;
+//     } else {
+//       images[i].offsetParent.href = new_image;
+//     }
+//   }
+// }
 //	Recompute grid parameters.
 function recomputeWaifuQuiltParameters() {
   let waifusAcross = Math.floor(window.innerWidth / TXDNE.waifuSize) + 2;
@@ -423,7 +423,7 @@ function waifuSetup() {
     })
   );
   window.addEventListener("touchend", TXDNE.dragEndEvent);
-  window.addEventListener("touchcancel", (event) => {
+  window.addEventListener("touchcancel", (_event) => {
     window.onmousemove = "";
     window.ontouchmove = "";
 
@@ -562,7 +562,7 @@ function toggleFullScreen(on) {
 }
 Æ(document.querySelector("#controls button.full-screen")).addEventListener(
   "click",
-  (event) => {
+  (_event) => {
     toggleFullScreen();
   }
 );
@@ -687,7 +687,7 @@ function isFullScreen() {
     document.mozFullscreenElement
   );
 }
-window.addEventListener("resize", (event) => {
+window.addEventListener("resize", (_event) => {
   updateFullScreenButton();
   let gridWasScrolling = window.waifuQuiltPanTickTock != null;
   clearInterval(window.waifuQuiltPanTickTock);
