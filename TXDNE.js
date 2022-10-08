@@ -77,8 +77,8 @@ function adjustGridOffsetBy(xOffset, yOffset) {
 // }
 //	Recompute grid parameters.
 function recomputeWaifuQuiltParameters() {
-  let waifusAcross = Math.floor(window.innerWidth / TXDNE.waifuSize) + 2;
-  let waifusDown = Math.floor(window.innerHeight / TXDNE.waifuSize) + 2;
+  let waifusAcross = Math.floor(window.innerWidth / TXDNE.waifuX) + 2;
+  let waifusDown = Math.floor(window.innerHeight / TXDNE.waifuY) + 2;
 
   TXDNE.waifusAcross = Math.max(TXDNE.waifusAcross || 0, waifusAcross);
   TXDNE.waifusDown = Math.max(TXDNE.waifusDown || 0, waifusDown);
@@ -89,7 +89,7 @@ function recomputeWaifuQuiltParameters() {
 
   let waifuGridStepsPerSecond =
     TXDNE.waifusPerSecond / TXDNE.avgWaifusPerFullGridStep;
-  let pixelsPerSecond = waifuGridStepsPerSecond * TXDNE.waifuSize;
+  let pixelsPerSecond = waifuGridStepsPerSecond * TXDNE.waifuY;
   TXDNE.panTickDistance = (TXDNE.panTickInterval / 1000) * pixelsPerSecond;
 }
 // Create and return a new waifu link cell.
@@ -157,9 +157,9 @@ function populateGrid() {
       newWaifuLink.dataset.gridPositionX = gridPositionX;
       newWaifuLink.dataset.gridPositionY = gridPositionY;
       newWaifuLink.style.left =
-        newWaifuLink.dataset.gridPositionX * (TXDNE.waifuSize + 1) + "px";
+        newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
       newWaifuLink.style.top =
-        newWaifuLink.dataset.gridPositionY * (TXDNE.waifuSize + 1) + "px";
+        newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
       TXDNE.waifuQuilt.appendChild(newWaifuLink);
       loadWaifu(newWaifuLink);
     }
@@ -175,9 +175,9 @@ function addRow(where) {
         ? TXDNE.waifuQuilt.gridYOrigin + TXDNE.waifusDown
         : TXDNE.waifuQuilt.gridYOrigin - 1;
     newWaifuLink.style.left =
-      newWaifuLink.dataset.gridPositionX * (TXDNE.waifuSize + 1) + "px";
+      newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
     newWaifuLink.style.top =
-      newWaifuLink.dataset.gridPositionY * (TXDNE.waifuSize + 1) + "px";
+      newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
     loadWaifu(newWaifuLink);
     TXDNE.waifuQuilt.appendChild(newWaifuLink);
   }
@@ -194,9 +194,9 @@ function addColumn(where) {
         : TXDNE.waifuQuilt.gridXOrigin - 1;
     newWaifuLink.dataset.gridPositionY = k + TXDNE.waifuQuilt.gridYOrigin;
     newWaifuLink.style.left =
-      newWaifuLink.dataset.gridPositionX * (TXDNE.waifuSize + 1) + "px";
+      newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
     newWaifuLink.style.top =
-      newWaifuLink.dataset.gridPositionY * (TXDNE.waifuSize + 1) + "px";
+      newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
     loadWaifu(newWaifuLink);
     TXDNE.waifuQuilt.appendChild(newWaifuLink);
   }
@@ -238,13 +238,13 @@ function updateGrid() {
       `.waifu-link[data-grid-position-x='${TXDNE.waifuQuilt.gridXOrigin}']`
     )
     .getBoundingClientRect().left;
-  let rightOfGrid = leftOfGrid + TXDNE.waifusAcross * (TXDNE.waifuSize + 1);
+  let rightOfGrid = leftOfGrid + TXDNE.waifusAcross * (TXDNE.waifuX + 1);
   let topOfGrid = TXDNE.waifuQuilt
     .querySelector(
       `.waifu-link[data-grid-position-y='${TXDNE.waifuQuilt.gridYOrigin}']`
     )
     .getBoundingClientRect().top;
-  let bottomOfGrid = topOfGrid + TXDNE.waifusDown * (TXDNE.waifuSize + 1);
+  let bottomOfGrid = topOfGrid + TXDNE.waifusDown * (TXDNE.waifuY + 1);
 
   let gridBounds = {
     left: leftOfGrid,
@@ -253,56 +253,57 @@ function updateGrid() {
     bottom: bottomOfGrid,
   };
 
+  // TODO: window stuff may not nessecarily be the same as the quilt
   gridNeedsUpdating =
-    gridBounds.left > 0 - TXDNE.waifuSize ||
-    gridBounds.right < window.innerWidth + TXDNE.waifuSize ||
-    gridBounds.top > 0 - TXDNE.waifuSize ||
-    gridBounds.bottom < window.innerHeight + TXDNE.waifuSize ||
-    gridBounds.left < 0 - 2 * TXDNE.waifuSize ||
-    gridBounds.right > window.innerWidth + 2 * TXDNE.waifuSize ||
-    gridBounds.top < 0 - 2 * TXDNE.waifuSize ||
-    gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuSize;
+    gridBounds.left > 0 - TXDNE.waifuX ||
+    gridBounds.right < window.innerWidth + TXDNE.waifuX ||
+    gridBounds.top > 0 - TXDNE.waifuY ||
+    gridBounds.bottom < window.innerHeight + TXDNE.waifuY ||
+    gridBounds.left < 0 - 2 * TXDNE.waifuX ||
+    gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX ||
+    gridBounds.top < 0 - 2 * TXDNE.waifuY ||
+    gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuY;
 
   if (gridNeedsUpdating) {
     // Add column, if needed.
-    if (gridBounds.left > 0 - TXDNE.waifuSize) {
+    if (gridBounds.left > 0 - TXDNE.waifuX) {
       // Add column left
       //console.log("Adding column left...");
       addColumn("left");
-    } else if (gridBounds.right < window.innerWidth + TXDNE.waifuSize) {
+    } else if (gridBounds.right < window.innerWidth + TXDNE.waifuX) {
       // Add column right
       //console.log("Adding column right...");
       addColumn("right");
     }
 
     // Add row, if needed.
-    if (gridBounds.top > 0 - TXDNE.waifuSize) {
+    if (gridBounds.top > 0 - TXDNE.waifuY) {
       // Add row top
       //console.log("Adding row top...");
       addRow("top");
-    } else if (gridBounds.bottom < window.innerHeight + TXDNE.waifuSize) {
+    } else if (gridBounds.bottom < window.innerHeight + TXDNE.waifuY) {
       // Add row bottom
       //console.log("Adding row bottom...");
       addRow("bottom");
     }
 
     // Remove column, if needed.
-    if (gridBounds.left < 0 - 2 * TXDNE.waifuSize) {
+    if (gridBounds.left < 0 - 2 * TXDNE.waifuX) {
       // Remove column left
       //console.log("Removing column left...");
       removeColumn("left");
-    } else if (gridBounds.right > window.innerWidth + 2 * TXDNE.waifuSize) {
+    } else if (gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX) {
       // Remove column right
       //console.log("Removing column right...");
       removeColumn("right");
     }
 
     // Remove row, if needed.
-    if (gridBounds.top < 0 - 2 * TXDNE.waifuSize) {
+    if (gridBounds.top < 0 - 2 * TXDNE.waifuY) {
       // Remove row top
       //console.log("Removing row top...");
       removeRow("top");
-    } else if (gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuSize) {
+    } else if (gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuY) {
       // Remove row bottom
       //console.log("Removing row bottom...");
       removeRow("bottom");
@@ -337,7 +338,8 @@ function waifuSetup() {
 		make it seem like we’re looking at just a part of an infinite grid.
 		The offset is random, and different on every page load.
 		*/
-  let offset = -1 * Math.round(Math.random() * TXDNE.waifuSize);
+  // TODO:: might not want any offset, actually.
+  let offset = -1 * Math.round(Math.random() * TXDNE.waifuX);
   adjustGridOffsetBy(offset, offset);
 
   document
@@ -579,30 +581,30 @@ document.addEventListener("keyup", (event) => {
       break;
     case "ArrowDown":
     case "Down":
-      adjustGridOffsetBy(0, -1 * (TXDNE.waifuSize / 2));
+      adjustGridOffsetBy(0, -1 * (TXDNE.waifuY / 2));
       updateGrid();
       break;
     case "ArrowRight":
     case "Right":
-      adjustGridOffsetBy(-1 * (TXDNE.waifuSize / 2), 0);
+      adjustGridOffsetBy(-1 * (TXDNE.waifuX / 2), 0);
       updateGrid();
       break;
     case "ArrowUp":
     case "Up":
-      adjustGridOffsetBy(0, TXDNE.waifuSize / 2);
+      adjustGridOffsetBy(0, TXDNE.waifuY / 2);
       updateGrid();
       break;
     case "ArrowLeft":
     case "Left":
-      adjustGridOffsetBy(TXDNE.waifuSize / 2, 0);
+      adjustGridOffsetBy(TXDNE.waifuX / 2, 0);
       updateGrid();
       break;
     case "PageDown":
-      adjustGridOffsetBy(0, -1 * (TXDNE.waifuSize * (TXDNE.waifusDown - 3)));
+      adjustGridOffsetBy(0, -1 * (TXDNE.waifuY * (TXDNE.waifusDown - 3)));
       while (updateGrid());
       break;
     case "PageUp":
-      adjustGridOffsetBy(0, TXDNE.waifuSize * (TXDNE.waifusDown - 3));
+      adjustGridOffsetBy(0, TXDNE.waifuY * (TXDNE.waifusDown - 3));
       while (updateGrid());
       break;
     default:
@@ -645,8 +647,8 @@ window.addEventListener("wheel", (event) => {
         (Math.abs(event.deltaY) / event.deltaY);
 
   adjustGridOffsetBy(
-    scrollX * TXDNE.waifuSize * -0.0625,
-    scrollY * TXDNE.waifuSize * -0.0625
+    scrollX * TXDNE.waifuX * -0.0625,
+    scrollY * TXDNE.waifuY * -0.0625
   );
   updateGrid();
 });
