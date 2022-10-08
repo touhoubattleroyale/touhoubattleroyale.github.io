@@ -303,13 +303,11 @@ function waifuSetup() {
 
   TXDNE.waifuQuilt.offsetX = 0;
   TXDNE.waifuQuilt.offsetY = 0;
-  /*	As noted above, we offset the grid up and to the left, so as to
-		make it seem like we’re looking at just a part of an infinite grid.
-		The offset is random, and different on every page load.
-		*/
-  // TODO:: might not want any offset, actually.
-  let offset = -1 * Math.round(Math.random() * TXDNE.waifuX);
-  adjustGridOffsetBy(offset, offset);
+  /* unlike TWDNE, offset is not random since i only want one row*/
+
+  let offsetX = 129; // this is exactly right
+  let offsetY = 200; // this is good enough, it doesn't matter
+  adjustGridOffsetBy(offsetX, offsetY);
 
   document
     .querySelector("head")
