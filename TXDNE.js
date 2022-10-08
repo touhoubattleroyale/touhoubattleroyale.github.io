@@ -86,42 +86,6 @@ function createWaifu() {
   newWaifuLink.classList.add("waifu-link");
   newWaifuLink.target = "_blank";
   newWaifuLink.appendChild(newWaifu);
-
-  newWaifuLink.addEventListener("mouseover", (event) => {
-    if (!TXDNE.waifuQuilt.classList.contains("magnify-on-hover")) return;
-
-    let atEdge = {
-      top:
-        event.target.dataset.gridPositionY < TXDNE.waifuQuilt.gridYOrigin + 2,
-      right:
-        event.target.dataset.gridPositionX >
-        TXDNE.waifuQuilt.gridXOrigin + TXDNE.waifusAcross - 3,
-      bottom:
-        event.target.dataset.gridPositionY >
-        TXDNE.waifuQuilt.gridYOrigin + TXDNE.waifusDown - 3,
-      left:
-        event.target.dataset.gridPositionX < TXDNE.waifuQuilt.gridXOrigin + 2,
-    };
-    let waifuHoverAdjustStyle = document.querySelector(
-      "#waifu-hover-adjust-style"
-    );
-    let waifuHoverAdjust = {
-      top: atEdge.top ? "calc(var(--waifu-height) + 1px)" : "unset",
-      right: atEdge.right ? "calc(var(--waifu-width) + 1px)" : "unset",
-      bottom: atEdge.bottom ? "calc(var(--waifu-height) + 1px)" : "unset",
-      left: atEdge.left ? "calc(var(--waifu-width) + 1px)" : "unset",
-    };
-    waifuHoverAdjustStyle.innerHTML = `
-			.waifu-link[data-grid-position-x='${event.target.dataset.gridPositionX}'][data-grid-position-y='${event.target.dataset.gridPositionY}']:hover .waifu,
-			.waifu-link[data-grid-position-x='${event.target.dataset.gridPositionX}'][data-grid-position-y='${event.target.dataset.gridPositionY}']:hover::after {
-				top: ${waifuHoverAdjust.top};
-				right: ${waifuHoverAdjust.right};
-				bottom: ${waifuHoverAdjust.bottom};
-				left: ${waifuHoverAdjust.left};
-			}
-		`;
-  });
-
   return newWaifuLink;
 }
 
@@ -138,6 +102,7 @@ function populateGrid() {
         `[data-grid-position-x='${gridPositionX}'][data-grid-position-y='${gridPositionY}']`
       )
     ) {
+      //   if (gridPositionX !== 0) gridPositionX = 0; // might cause horror and crashing.
       let newWaifuLink = createWaifu();
       newWaifuLink.dataset.gridPositionX = gridPositionX;
       newWaifuLink.dataset.gridPositionY = gridPositionY;
