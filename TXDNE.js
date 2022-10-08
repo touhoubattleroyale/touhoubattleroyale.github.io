@@ -102,7 +102,7 @@ function populateGrid() {
         `[data-grid-position-x='${gridPositionX}'][data-grid-position-y='${gridPositionY}']`
       )
     ) {
-      //   if (gridPositionX !== 0) gridPositionX = 0; // might cause horror and crashing.
+      if (gridPositionX !== 0) continue; // this fixes the initial 2 column bug
       let newWaifuLink = createWaifu();
       newWaifuLink.dataset.gridPositionX = gridPositionX;
       newWaifuLink.dataset.gridPositionY = gridPositionY;
