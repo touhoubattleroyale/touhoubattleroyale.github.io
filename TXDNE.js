@@ -546,26 +546,6 @@ document.addEventListener("keyup", (event) => {
         );
       }
       break;
-    case "ArrowDown":
-    case "Down":
-      adjustGridOffsetBy(0, -1 * (TXDNE.waifuY / 2));
-      updateGrid();
-      break;
-    case "ArrowRight":
-    case "Right":
-      adjustGridOffsetBy(-1 * (TXDNE.waifuX / 2), 0);
-      updateGrid();
-      break;
-    case "ArrowUp":
-    case "Up":
-      adjustGridOffsetBy(0, TXDNE.waifuY / 2);
-      updateGrid();
-      break;
-    case "ArrowLeft":
-    case "Left":
-      adjustGridOffsetBy(TXDNE.waifuX / 2, 0);
-      updateGrid();
-      break;
     case "PageDown":
       adjustGridOffsetBy(0, -1 * (TXDNE.waifuY * (TXDNE.waifusDown - 3)));
       while (updateGrid());
