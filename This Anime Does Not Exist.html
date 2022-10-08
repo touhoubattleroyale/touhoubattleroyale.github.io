@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" type="text/css" href="TXDNE.css" />
     <link rel="stylesheet" type="text/css" href="extra.css" />
-    <link href="bootstrap-slider.min.css" rel="stylesheet" />
     <link href="materialdesignicons.min.css" rel="stylesheet" />
 
     <title>This Anime Does Not Exist</title>
@@ -20,7 +19,7 @@
   <noscript>
     <h4 style="text-align: center" class="red">Um bro? Your javascript?</h4>
   </noscript>
-  <div id="waifu-quilt" class="magnify-on-hover"></div>
+  <div id="waifu-quilt" ></div>
   <h2 class="controls">
     New state of the art anime image generation as of Oct 2022:<a
       target="_blank"
@@ -85,6 +84,7 @@
   <script src="TXDNE.js"></script>
   <script>
     function all_creativity(arg) {
+        // TODO: this probably gets deleted?
       if (arg) {
         TXDNE.special_href =
           "https://thisanimedoesnotexist.ai/slider.html?seed=";
@@ -101,56 +101,28 @@
         window.location.reload(true);
       }
     }
-    function speedSliderChange() {
-      speed = $("#speed-slider").val();
-      TXDNE.waifusPerSecond = speed;
-      recomputeWaifuQuiltParameters();
-    }
+//     function speedSliderChange() {
+//       speed = $("#speed-slider").val();
+//       TXDNE.waifusPerSecond = speed;
+//       recomputeWaifuQuiltParameters(); // TODO: might need this when ppl die?
+//     }
 
-    function randomnessSliderChange() {
-      value = $("#randomness-slider").val();
-      // don't @ me
-      if (value == 1) {
-        value = "1.0";
-      }
-      if (value == 2) {
-        value = "2.0";
-      }
-      TXDNE.waifuSourceURLBase =
-        "https://thisanimedoesnotexist.ai/results/psi-" + value + "/seed";
-      new_psi = value;
-      alterWaifuURL(new_psi);
-    }
-
-    $("#speed-slider")
-      .bootstrapSlider({
-        formatter: function (value) {
-          document.getElementById("speed").innerHTML = value;
-        },
-      })
-      .on("change", speedSliderChange);
-
-    $("#randomness-slider")
-      .bootstrapSlider({
-        formatter: function (value) {
-          //value = value + '(higher values encourage the AI to be more creative, original, and messy)';
-          document.getElementById("randomness").innerHTML = value;
-        },
-      })
-      .on("change", randomnessSliderChange);
+//     function randomnessSliderChange() {
+//       value = $("#randomness-slider").val();
+//       // don't @ me
+//       if (value == 1) {
+//         value = "1.0";
+//       }
+//       if (value == 2) {
+//         value = "2.0";
+//       }
+//       TXDNE.waifuSourceURLBase =
+//         "https://thisanimedoesnotexist.ai/results/psi-" + value + "/seed";
+//       new_psi = value;
+//       alterWaifuURL(new_psi);
+//     }
 
     all_creativity(true);
-    //if (document.getElementById('creative_links').checked) {
-    //      all_creativity(true);
-    //}
-    //
-    //$('input[type="checkbox"]').click(function() {
-    //        if($(this).prop("checked") == true) {
-    //              all_creativity(true);
-    //        }
-    //        else if($(this).prop("checked") == false) {
-    //              all_creativity(false);
-    //        }
-    //});
+
   </script>
 </html>

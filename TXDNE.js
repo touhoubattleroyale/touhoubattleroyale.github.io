@@ -571,9 +571,6 @@ document.addEventListener("keyup", (event) => {
     case "f":
       toggleFullScreen();
       break;
-    case "z":
-      TXDNE.waifuQuilt.classList.toggle("magnify-on-hover");
-      break;
     case "0":
       clearInterval(window.waifuQuiltPanTickTock);
       window.waifuQuiltPanTickTock = null;
