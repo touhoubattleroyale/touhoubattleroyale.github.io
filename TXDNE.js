@@ -49,6 +49,7 @@ function rollDie(dieSize) {
   return 1 + Math.floor(Math.random() * dieSize);
 }
 function getRandomWaifuID() {
+  // TODO: this is where we would prevent recent duplicates
   return rollDie(TXDNE.waifuSetSize) - 1;
 }
 function adjustGridOffsetBy(xOffset, yOffset) {
@@ -59,22 +60,6 @@ function adjustGridOffsetBy(xOffset, yOffset) {
   }, ${TXDNE.waifuQuilt.offsetY + "px"})`;
 }
 
-// function alterWaifuURL(new_psi) {
-//   // reload all waifus on the page if we change the psi value
-//   var images = document.getElementsByTagName("img");
-//   for (var i = 0; i < images.length; i++) {
-//     old_image = images[i].src;
-//     new_image = old_image.replace(/psi-.../, "psi-" + new_psi);
-//     images[i].src = new_image;
-//     // if we are set to use slider.html
-//     if (typeof TXDNE.special_href != "undefined") {
-//       data_id = images[i].parentElement.attributes["data-id"].value;
-//       images[i].offsetParent.href = `${TXDNE.special_href}${data_id}`;
-//     } else {
-//       images[i].offsetParent.href = new_image;
-//     }
-//   }
-// }
 //	Recompute grid parameters.
 function recomputeWaifuQuiltParameters() {
   let waifusAcross = Math.floor(window.innerWidth / TXDNE.waifuX) + 2;
@@ -267,45 +252,29 @@ function updateGrid() {
   if (gridNeedsUpdating) {
     // Add column, if needed.
     if (gridBounds.left > 0 - TXDNE.waifuX) {
-      // Add column left
-      //console.log("Adding column left...");
       addColumn("left");
     } else if (gridBounds.right < window.innerWidth + TXDNE.waifuX) {
-      // Add column right
-      //console.log("Adding column right...");
       addColumn("right");
     }
 
     // Add row, if needed.
     if (gridBounds.top > 0 - TXDNE.waifuY) {
-      // Add row top
-      //console.log("Adding row top...");
       addRow("top");
     } else if (gridBounds.bottom < window.innerHeight + TXDNE.waifuY) {
-      // Add row bottom
-      //console.log("Adding row bottom...");
       addRow("bottom");
     }
 
     // Remove column, if needed.
     if (gridBounds.left < 0 - 2 * TXDNE.waifuX) {
-      // Remove column left
-      //console.log("Removing column left...");
       removeColumn("left");
     } else if (gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX) {
-      // Remove column right
-      //console.log("Removing column right...");
       removeColumn("right");
     }
 
     // Remove row, if needed.
     if (gridBounds.top < 0 - 2 * TXDNE.waifuY) {
-      // Remove row top
-      //console.log("Removing row top...");
       removeRow("top");
     } else if (gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuY) {
-      // Remove row bottom
-      //console.log("Removing row bottom...");
       removeRow("bottom");
     }
   }
