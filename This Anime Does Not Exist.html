@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="TXDNE.css" />
 
-    <title>Touhou Battle Royale</title>
+    <title>This Anime Does Not Exist</title>
     <script src="jquery.min.js"></script>
     <script src="jquery-ui.min.js"></script>
   </head>
@@ -14,12 +14,31 @@
   <noscript>
     <h4 style="text-align: center" class="red">Um bro? Your javascript?</h4>
   </noscript>
-  <div id="waifu-quilt"></div>
-  <h2 class="controls">TOUHOU BATTLE ROYALE BABY</h2>
+  <div id="waifu-quilt" ></div>
+  <h2 class="controls">
+    New state of the art anime image generation as of Oct 2022:<a
+      target="_blank"
+      href="https://huggingface.co/hakurei/waifu-diffusion"
+      >Waifu Diffusion</a
+    ><br />
+
+    <span class="red">Space</span>: pause grid, <span class="red">Drag</span>:
+    pan grid, <span class="red">Click</span>: open image in new tab<br />
+    <span class="red">F</span>: fullscreen mode,  <span class="red"><br />
+
+    You can find updates about anime and AI on
+    <a target="_blank" href="https://twitter.com/nearcyan"
+      ><span class="mdi mdi-twitter"></span> Twitter</a
+    ><br /><br />
+    <small>
+      ezclappo
+    </small>
+  </h2>
 
   <script>
     TXDNE = {
-      waifuSourceURLBase: "img/",
+      waifuSourceURLBase:
+        "img/",
       waifuSourceURLFileExtension: "png",
       waifuSetSize: 139,
       leftPadWaifuIDsWithZeroes: false,
@@ -32,46 +51,46 @@
   </script>
   <script src="TXDNE.js"></script>
   <script>
-    // TODO: add noselect to the entire thing so u don't select the waifus. use bb-bots code
-    //     function all_creativity(arg) {
-    //         // TODO: this probably gets deleted?
-    //       if (arg) {
-    //         TXDNE.special_href =
-    //           "https://thisanimedoesnotexist.ai/slider.html?seed=";
-    //         var images = document.getElementsByTagName("a");
-    //         for (var i = 0; i < images.length; i++) {
-    //           src = images[i].href;
-    //           src = src.replace(/results\/psi-1.0./, "slider.html?");
-    //           src = src.replace(/seed/, "seed=");
-    //           src = src.replace(/\.png/, "");
-    //           images[i].href = src;
-    //         }
-    //       } else {
-    //         // please don't read this I'm not in the mood to write js right now
-    //         window.location.reload(true);
-    //       }
-    //     }
-    //     function speedSliderChange() {
-    //       speed = $("#speed-slider").val();
-    //       TXDNE.waifusPerSecond = speed;
-    //       recomputeWaifuQuiltParameters(); // TODO: might need this when ppl die?
-    //     }
+        // TODO: add noselect to the entire thing so u don't select the waifus. use bb-bots code
+//     function all_creativity(arg) {
+//         // TODO: this probably gets deleted?
+//       if (arg) {
+//         TXDNE.special_href =
+//           "https://thisanimedoesnotexist.ai/slider.html?seed=";
+//         var images = document.getElementsByTagName("a");
+//         for (var i = 0; i < images.length; i++) {
+//           src = images[i].href;
+//           src = src.replace(/results\/psi-1.0./, "slider.html?");
+//           src = src.replace(/seed/, "seed=");
+//           src = src.replace(/\.png/, "");
+//           images[i].href = src;
+//         }
+//       } else {
+//         // please don't read this I'm not in the mood to write js right now
+//         window.location.reload(true);
+//       }
+//     }
+//     function speedSliderChange() {
+//       speed = $("#speed-slider").val();
+//       TXDNE.waifusPerSecond = speed;
+//       recomputeWaifuQuiltParameters(); // TODO: might need this when ppl die?
+//     }
 
-    //     function randomnessSliderChange() {
-    //       value = $("#randomness-slider").val();
-    //       // don't @ me
-    //       if (value == 1) {
-    //         value = "1.0";
-    //       }
-    //       if (value == 2) {
-    //         value = "2.0";
-    //       }
-    //       TXDNE.waifuSourceURLBase =
-    //         "https://thisanimedoesnotexist.ai/results/psi-" + value + "/seed";
-    //       new_psi = value;
-    //       alterWaifuURL(new_psi);
-    //     }
+//     function randomnessSliderChange() {
+//       value = $("#randomness-slider").val();
+//       // don't @ me
+//       if (value == 1) {
+//         value = "1.0";
+//       }
+//       if (value == 2) {
+//         value = "2.0";
+//       }
+//       TXDNE.waifuSourceURLBase =
+//         "https://thisanimedoesnotexist.ai/results/psi-" + value + "/seed";
+//       new_psi = value;
+//       alterWaifuURL(new_psi);
+//     }
 
-    //     all_creativity(true);
+//     all_creativity(true);
   </script>
 </html>
