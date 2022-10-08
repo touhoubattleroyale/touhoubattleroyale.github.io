@@ -62,7 +62,7 @@ function adjustGridOffsetBy(xOffset, yOffset) {
 
 //	Recompute grid parameters.
 function recomputeWaifuQuiltParameters() {
-  let waifusAcross = Math.floor(window.innerWidth / TXDNE.waifuX) + 2;
+  let waifusAcross = 1;
   let waifusDown = Math.floor(window.innerHeight / TXDNE.waifuY) + 2;
 
   TXDNE.waifusAcross = Math.max(TXDNE.waifusAcross || 0, waifusAcross);
@@ -129,10 +129,10 @@ function populateGrid() {
   /*	Each waifu box is an <img> tag wrapped in an <a> tag.
 		Here we create the boxes and place them on the grid.
 		*/
-  let totalWaifus = TXDNE.waifusAcross * TXDNE.waifusDown;
+  let totalWaifus = 1 * TXDNE.waifusDown;
   for (var i = 0; i < totalWaifus; i++) {
-    let gridPositionX = Math.floor(i % TXDNE.waifusAcross);
-    let gridPositionY = Math.floor(i / TXDNE.waifusAcross);
+    let gridPositionX = Math.floor(i % 1);
+    let gridPositionY = Math.floor(i / 1);
     if (
       !TXDNE.waifuQuilt.querySelector(
         `[data-grid-position-x='${gridPositionX}'][data-grid-position-y='${gridPositionY}']`
@@ -171,6 +171,7 @@ function addRow(where) {
 }
 
 function addColumn(where) {
+  //   if (TXDNE.waifusAcross > 0) return;
   for (var k = 0; k < TXDNE.waifusDown; k++) {
     let newWaifuLink = createWaifu();
     newWaifuLink.dataset.gridPositionX =
@@ -241,21 +242,21 @@ function updateGrid() {
   // TODO: window stuff may not nessecarily be the same as the quilt
   gridNeedsUpdating =
     gridBounds.left > 0 - TXDNE.waifuX ||
-    gridBounds.right < window.innerWidth + TXDNE.waifuX ||
+    gridBounds.right < 0 + TXDNE.waifuX ||
     gridBounds.top > 0 - TXDNE.waifuY ||
     gridBounds.bottom < window.innerHeight + TXDNE.waifuY ||
     gridBounds.left < 0 - 2 * TXDNE.waifuX ||
-    gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX ||
+    gridBounds.right > 0 + 2 * TXDNE.waifuX ||
     gridBounds.top < 0 - 2 * TXDNE.waifuY ||
     gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuY;
 
   if (gridNeedsUpdating) {
     // Add column, if needed.
-    if (gridBounds.left > 0 - TXDNE.waifuX) {
-      addColumn("left");
-    } else if (gridBounds.right < window.innerWidth + TXDNE.waifuX) {
-      addColumn("right");
-    }
+    // if (gridBounds.left > 0 - TXDNE.waifuX) {
+    //   addColumn("left");
+    // } else if (gridBounds.right < 0 + TXDNE.waifuX) {
+    //   addColumn("right");
+    // }
 
     // Add row, if needed.
     if (gridBounds.top > 0 - TXDNE.waifuY) {
@@ -267,7 +268,7 @@ function updateGrid() {
     // Remove column, if needed.
     if (gridBounds.left < 0 - 2 * TXDNE.waifuX) {
       removeColumn("left");
-    } else if (gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX) {
+    } else if (gridBounds.right > 0 + 2 * TXDNE.waifuX) {
       removeColumn("right");
     }
 
@@ -551,21 +552,21 @@ document.addEventListener("keyup", (event) => {
       adjustGridOffsetBy(0, -1 * (TXDNE.waifuY / 2));
       updateGrid();
       break;
-    case "ArrowRight":
-    case "Right":
-      adjustGridOffsetBy(-1 * (TXDNE.waifuX / 2), 0);
-      updateGrid();
-      break;
+    // case "ArrowRight":
+    // case "Right":
+    //   adjustGridOffsetBy(-1 * (TXDNE.waifuX / 2), 0);
+    //   updateGrid();
+    //   break;
     case "ArrowUp":
     case "Up":
       adjustGridOffsetBy(0, TXDNE.waifuY / 2);
       updateGrid();
       break;
-    case "ArrowLeft":
-    case "Left":
-      adjustGridOffsetBy(TXDNE.waifuX / 2, 0);
-      updateGrid();
-      break;
+    // case "ArrowLeft":
+    // case "Left":
+    //   adjustGridOffsetBy(TXDNE.waifuX / 2, 0);
+    //   updateGrid();
+    //   break;
     case "PageDown":
       adjustGridOffsetBy(0, -1 * (TXDNE.waifuY * (TXDNE.waifusDown - 3)));
       while (updateGrid());
