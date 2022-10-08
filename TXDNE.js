@@ -62,7 +62,7 @@ function adjustGridOffsetBy(xOffset, yOffset) {
 
 //	Recompute grid parameters.
 function recomputeWaifuQuiltParameters() {
-  let waifusAcross = Math.floor(window.innerWidth / TXDNE.waifuX) + 2;
+  let waifusAcross = Math.floor(1 / TXDNE.waifuX) + 2;
   let waifusDown = Math.floor(window.innerHeight / TXDNE.waifuY) + 2;
 
   TXDNE.waifusAcross = Math.max(TXDNE.waifusAcross || 0, waifusAcross);
@@ -241,11 +241,11 @@ function updateGrid() {
   // TODO: window stuff may not nessecarily be the same as the quilt
   gridNeedsUpdating =
     gridBounds.left > 0 - TXDNE.waifuX ||
-    gridBounds.right < window.innerWidth + TXDNE.waifuX ||
+    gridBounds.right < 1 + TXDNE.waifuX ||
     gridBounds.top > 0 - TXDNE.waifuY ||
     gridBounds.bottom < window.innerHeight + TXDNE.waifuY ||
     gridBounds.left < 0 - 2 * TXDNE.waifuX ||
-    gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX ||
+    gridBounds.right > 1 + 2 * TXDNE.waifuX ||
     gridBounds.top < 0 - 2 * TXDNE.waifuY ||
     gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuY;
 
@@ -253,7 +253,7 @@ function updateGrid() {
     // Add column, if needed.
     if (gridBounds.left > 0 - TXDNE.waifuX) {
       addColumn("left");
-    } else if (gridBounds.right < window.innerWidth + TXDNE.waifuX) {
+    } else if (gridBounds.right < 1 + TXDNE.waifuX) {
       addColumn("right");
     }
 
@@ -267,7 +267,7 @@ function updateGrid() {
     // Remove column, if needed.
     if (gridBounds.left < 0 - 2 * TXDNE.waifuX) {
       removeColumn("left");
-    } else if (gridBounds.right > window.innerWidth + 2 * TXDNE.waifuX) {
+    } else if (gridBounds.right > 1 + 2 * TXDNE.waifuX) {
       removeColumn("right");
     }
 
@@ -350,128 +350,128 @@ function waifuSetup() {
 
   TXDNE.dragging = false;
 
-  window.addEventListener(
-    "mouseup",
-    (TXDNE.dragEndEvent = (event) => {
-      window.onmousemove = "";
-      window.ontouchmove = "";
+  //   window.addEventListener(
+  //     "mouseup",
+  //     (TXDNE.dragEndEvent = (event) => {
+  //       window.onmousemove = "";
+  //       window.ontouchmove = "";
 
-      TXDNE.dragging = false;
-      TXDNE.dragBeginTarget.style.pointerEvents = "auto";
-      // We only want to do anything on left-clicks.
-      if (event.type != "touchend") {
-        if (event.button != 0) return;
-        event.preventDefault();
-      }
+  //       TXDNE.dragging = false;
+  //       TXDNE.dragBeginTarget.style.pointerEvents = "auto";
+  //       // We only want to do anything on left-clicks.
+  //       if (event.type != "touchend") {
+  //         if (event.button != 0) return;
+  //         event.preventDefault();
+  //       }
 
-      recomputeWaifuQuiltParameters();
-      populateGrid();
-      if (TXDNE.gridWasScrollingPriorToDrag) {
-        clearInterval(window.waifuQuiltPanTickTock);
-        window.waifuQuiltPanTickTock = setInterval(
-          window.waifuQuiltPanTickFunction,
-          TXDNE.panTickInterval
-        );
-      }
+  //       recomputeWaifuQuiltParameters();
+  //       populateGrid();
+  //       if (TXDNE.gridWasScrollingPriorToDrag) {
+  //         clearInterval(window.waifuQuiltPanTickTock);
+  //         window.waifuQuiltPanTickTock = setInterval(
+  //           window.waifuQuiltPanTickFunction,
+  //           TXDNE.panTickInterval
+  //         );
+  //       }
 
-      if (event.type != "touchend") {
-        return false;
-      } else {
-        return true;
-      }
-    })
-  );
-  window.addEventListener("touchend", TXDNE.dragEndEvent);
-  window.addEventListener("touchcancel", (_event) => {
-    window.onmousemove = "";
-    window.ontouchmove = "";
+  //       if (event.type != "touchend") {
+  //         return false;
+  //       } else {
+  //         return true;
+  //       }
+  //     })
+  //   );
+  //   window.addEventListener("touchend", TXDNE.dragEndEvent);
+  //   window.addEventListener("touchcancel", (_event) => {
+  //     window.onmousemove = "";
+  //     window.ontouchmove = "";
 
-    TXDNE.dragging = false;
-    TXDNE.dragBeginTarget.style.pointerEvents = "auto";
-  });
-  window.addEventListener(
-    "mousedown",
-    (TXDNE.dragBeginEvent = (event) => {
-      // We only want to do anything on left-clicks.
-      if (event.type != "touchstart") {
-        if (event.button != 0) return;
+  //     TXDNE.dragging = false;
+  //     TXDNE.dragBeginTarget.style.pointerEvents = "auto";
+  //   });
+  //   window.addEventListener(
+  //     "mousedown",
+  //     (TXDNE.dragBeginEvent = (event) => {
+  //       // We only want to do anything on left-clicks.
+  //       if (event.type != "touchstart") {
+  //         if (event.button != 0) return;
 
-        // if this is a click within the control panel box, do not process it as a pan
-        control_coords = document
-          .getElementsByClassName("controls")[0]
-          .getBoundingClientRect();
-        if (
-          event.clientX > control_coords.left &&
-          event.clientX < control_coords.right &&
-          event.clientY > control_coords.top &&
-          event.clientY < control_coords.bottom
-        ) {
-          return false;
-        }
+  //         // if this is a click within the control panel box, do not process it as a pan
+  //         control_coords = document
+  //           .getElementsByClassName("controls")[0]
+  //           .getBoundingClientRect();
+  //         if (
+  //           event.clientX > control_coords.left &&
+  //           event.clientX < control_coords.right &&
+  //           event.clientY > control_coords.top &&
+  //           event.clientY < control_coords.bottom
+  //         ) {
+  //           return false;
+  //         }
 
-        if (true == $(event.target).hasClass("waifu-link")) {
-          event.preventDefault();
-        }
-      } else {
-        x = event.touches[0].clientX;
-        y = event.touches[0].clientY;
-        control_coords = document
-          .getElementsByClassName("controls")[0]
-          .getBoundingClientRect();
-        if (
-          x > control_coords.left &&
-          x < control_coords.right &&
-          y > control_coords.top &&
-          y < control_coords.bottom
-        ) {
-          return false;
-        }
-      }
+  //         if (true == $(event.target).hasClass("waifu-link")) {
+  //           event.preventDefault();
+  //         }
+  //       } else {
+  //         x = event.touches[0].clientX;
+  //         y = event.touches[0].clientY;
+  //         control_coords = document
+  //           .getElementsByClassName("controls")[0]
+  //           .getBoundingClientRect();
+  //         if (
+  //           x > control_coords.left &&
+  //           x < control_coords.right &&
+  //           y > control_coords.top &&
+  //           y < control_coords.bottom
+  //         ) {
+  //           return false;
+  //         }
+  //       }
 
-      TXDNE.gridWasScrollingPriorToDrag = window.waifuQuiltPanTickTock != null;
-      if (TXDNE.gridWasScrollingPriorToDrag) {
-        clearInterval(window.waifuQuiltPanTickTock);
-        window.waifuQuiltPanTickTock = null;
-      }
+  //       TXDNE.gridWasScrollingPriorToDrag = window.waifuQuiltPanTickTock != null;
+  //       if (TXDNE.gridWasScrollingPriorToDrag) {
+  //         clearInterval(window.waifuQuiltPanTickTock);
+  //         window.waifuQuiltPanTickTock = null;
+  //       }
 
-      if (event.type != "touchstart") {
-        TXDNE.mouseCoordX = event.clientX;
-        TXDNE.mouseCoordY = event.clientY;
-      } else {
-        TXDNE.mouseCoordX = event.touches[0].clientX;
-        TXDNE.mouseCoordY = event.touches[0].clientY;
-      }
+  //       if (event.type != "touchstart") {
+  //         TXDNE.mouseCoordX = event.clientX;
+  //         TXDNE.mouseCoordY = event.clientY;
+  //       } else {
+  //         TXDNE.mouseCoordX = event.touches[0].clientX;
+  //         TXDNE.mouseCoordY = event.touches[0].clientY;
+  //       }
 
-      TXDNE.dragBeginTarget = event.target;
+  //       TXDNE.dragBeginTarget = event.target;
 
-      window.onmousemove = TXDNE.dragMoveEvent = (event) => {
-        if (TXDNE.dragging == false)
-          TXDNE.dragBeginTarget.style.pointerEvents = "none";
-        TXDNE.dragging = true;
+  //       window.onmousemove = TXDNE.dragMoveEvent = (event) => {
+  //         if (TXDNE.dragging == false)
+  //           TXDNE.dragBeginTarget.style.pointerEvents = "none";
+  //         TXDNE.dragging = true;
 
-        if (event.type != "touchmove") {
-          let xMovement = event.clientX - TXDNE.mouseCoordX;
-          let yMovement = event.clientY - TXDNE.mouseCoordY;
+  //         if (event.type != "touchmove") {
+  //           let xMovement = event.clientX - TXDNE.mouseCoordX;
+  //           let yMovement = event.clientY - TXDNE.mouseCoordY;
 
-          TXDNE.mouseCoordX = event.clientX;
-          TXDNE.mouseCoordY = event.clientY;
+  //           TXDNE.mouseCoordX = event.clientX;
+  //           TXDNE.mouseCoordY = event.clientY;
 
-          adjustGridOffsetBy(xMovement, yMovement);
-        } else {
-          let xMovement = event.touches[0].clientX - TXDNE.mouseCoordX;
-          let yMovement = event.touches[0].clientY - TXDNE.mouseCoordY;
+  //           adjustGridOffsetBy(xMovement, yMovement);
+  //         } else {
+  //           let xMovement = event.touches[0].clientX - TXDNE.mouseCoordX;
+  //           let yMovement = event.touches[0].clientY - TXDNE.mouseCoordY;
 
-          TXDNE.mouseCoordX = event.touches[0].clientX;
-          TXDNE.mouseCoordY = event.touches[0].clientY;
+  //           TXDNE.mouseCoordX = event.touches[0].clientX;
+  //           TXDNE.mouseCoordY = event.touches[0].clientY;
 
-          adjustGridOffsetBy(xMovement, yMovement);
-        }
-        updateGrid();
-      };
-      window.ontouchmove = TXDNE.dragMoveEvent;
-    })
-  );
-  window.addEventListener("touchstart", TXDNE.dragBeginEvent);
+  //           adjustGridOffsetBy(xMovement, yMovement);
+  //         }
+  //         updateGrid();
+  //       };
+  //       window.ontouchmove = TXDNE.dragMoveEvent;
+  //     })
+  //   );
+  //   window.addEventListener("touchstart", TXDNE.dragBeginEvent);
 
   //	Begin the panning tick timer.
   window.waifuQuiltPanTickTock = setInterval(
