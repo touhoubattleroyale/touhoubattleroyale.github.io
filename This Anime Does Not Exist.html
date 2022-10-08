@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Nearcyan">
+    <meta name="description" content='TADNE: A website showcasing AI-generated images drawn in an anime style. "Noticeme, Onee-chan!"'>
+    <meta name="keywords" content="StyleGAN 2, generative art, neural networks, deep learning, generative adversarial networks, gwern.net, Nvidia, X Does Not Exist, waifu, nearcyan, anime">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@nearcyan" />
+    <meta name="twitter:title" content="This Anime Does Not Exist" />
+    <meta name="twitter:description" content='TADNE: A website showcasing AI-generated images drawn in an anime style. "Notice me, Onee-chan!"'/>
+    <meta name="twitter:description" content='TADNE: A website showcasing AI-generated images drawn in an anime style. "Notice me, Onee-chan!"'/>
+    <meta name="description" content='TADNE: A website showcasing AI-generated images drawn in an anime style. "Notice me, Onee-chan!"'/>
+    <meta name="twitter:image" content="https://thisanimedoesnotexist.ai/thumbnail.png">
+    <meta property="og:image" content="https://thisanimedoesnotexist.ai/thumbnail.png">
+
+        <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+
+	<link rel='stylesheet' type='text/css' href='TXDNE.css'>
+	<link rel='stylesheet' type='text/css' href='extra.css'>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.min.css" rel="stylesheet">
+
+	<title>This Anime Does Not Exist</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVFYMXZPXF');
+</script>
+<!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//thisanimedoesnotexist.ai/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '3']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+</head>
+
+
+                <noscript><h4 style="text-align: center" class="red">You must enable JavaScript to view these anime
+                images.<br>Only Javascript on this domain and cloudflare.com is required. I promise you won't
+                regret it!</h4></noscript>
+<div id='waifu-quilt' class='magnify-on-hover'></div>
+        <h2 class="controls">
+		New state of the art anime image generation as of Oct 2022:<a target="_blank" href="https://huggingface.co/hakurei/waifu-diffusion">Waifu Diffusion</a><br>
+                Creativity Slider &nbsp;&nbsp;&nbsp; <input id="randomness-slider" data-slider-id='quality-slider-slider' type="text"
+                data-slider-min="0.3" data-slider-max="2.0" data-slider-step="0.1"
+                data-slider-value="1.0">&nbsp;&nbsp;&nbsp;<span
+                id="randomness">0.5</span> <br>
+                <small>Higher creativity values tell the AI to be more creative and detailed, but also messy and weird</small><br><br>
+
+                <!--<input type="checkbox" id="creative_links" name="creative_links">Show all versions of
+                opened images</br><br>-->
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Speed Slider <input id="speed-slider"
+                data-slider-id='quality-slider-slider' type="text" data-slider-min="0" data-slider-max="5"
+                data-slider-step="0.5" data-slider-value="1.5">&nbsp;&nbsp;&nbsp;<span id="speed">1.5</span> <br><br>
+
+                <span class="red">Space</span>: pause grid, <span class="red">Drag</span>: pan grid, <span class="red">Click</span>: open image in new tab<br>
+                <span class="red">F</span>: fullscreen mode, <span class="red">Z</span>: toggle zoom on hover, <span
+                class="red">V</span>: video mode<br><br>
+
+		You can find updates about anime and AI on <a target="_blank" href="https://twitter.com/nearcyan"><span class="mdi mdi-twitter"></span> Twitter</a><br><br>
+                <small>
+                Credits: model by <a href="https://aydao.ai/" target="_blank">aydao</a>,
+                website by <a href="https://twitter.com/NearCyan" target="_blank">nearcyan</a>, 
+                JS by <a href="https://wiki.obormot.net/" target="_blank">obormot</a>,
+                help from <a target="_blank" href="https://gwern.net">gwern</a> (<a
+                href="https://www.thiswaifudoesnotexist.net/" target="_blank">TWDNE</a>),
+                <a href="https://twitter.com/arfafax" target="_blank">arfa</a> (<a
+                href="https://thisfursonadoesnotexist.com/" target="_blank">TFDNE</a>, <a
+                href="https://thisponydoesnotexist.net/" target="_blank">TPDNE</a>),
+                <a href="https://twitter.com/theshawwn" target="_blank">shawwn</a>, <a
+                href="https://twitter.com/SkyLi0n" target="_blank">skyli0n</a>, <a
+                href="https://discord.gg/RK2ZnYPTfE"><span class="mdi mdi-discord"></span> tensorfork</a> and <a href="https://www.tensorflow.org/tfrc" target ="_blank">TFRC</a><br>
+                More info: <a href="https://nearcyan.com/this-anime-does-not-exist/">About this website</a>, <a href="https://www.gwern.net/Faces#extended-stylegan2-danbooru2019-aydao">Detailed Gwern writeup</a><br>
+                Downloads: <a href="/downloads.html">Bulk download images and more</a><br>
+                </small>
+		<div style="text-align: right">
+			<a href="https://koe.ai/?utm_source=tadne&utm_medium=banner&utm_campaign=linkback&utm_id=1"</a><img style="max-width: 100%" width="600px" src="banner_80x600.png" alt="AI-powered anime voice changer!"></a>
+			<a href="/index.html?redir=false">English</a> | <a href="/index_jp.html?redir=false">日本語</a>&nbsp;&nbsp;&nbsp; <a target="_blank" href="https://twitter.com/nearcyan"><img src="twitter.png" height="36" width="36"></a></div>
+        </h2>
+
+<script>
+	TXDNE = {
+		waifuSourceURLBase: "https://thisanimedoesnotexist.ai/results/psi-1.0/seed",
+		waifuSourceURLFileExtension: "png",
+		waifuSetSize: 100000,
+		leftPadWaifuIDsWithZeroes: true,
+		waifuQuiltSelector: "#waifu-quilt",
+		waifuSize: 256,
+		waifusPerSecond: 1.5,
+		panTickInterval: (1000 / 60)
+	};
+</script>
+<script src="TXDNE.js"></script>
+<script>
+
+function all_creativity(arg)
+{
+        if (arg) {
+		TXDNE.special_href = "https://thisanimedoesnotexist.ai/slider.html?seed=";
+                var images = document.getElementsByTagName('a');
+                for(var i = 0; i < images.length; i++) {
+                        src = images[i].href;
+                        src = src.replace(/results\/psi-1.0./, 'slider.html?');
+                        src = src.replace(/seed/, 'seed=');
+                        src = src.replace(/\.png/, '');
+                        images[i].href = src;
+                }
+        }
+        else
+        {
+                // please don't read this I'm not in the mood to write js right now
+                window.location.reload(true);
+        }
+
+}
+function speedSliderChange() {
+    speed = $('#speed-slider').val();
+    TXDNE.waifusPerSecond = speed;
+    recomputeWaifuQuiltParameters();
+}
+
+function randomnessSliderChange() {
+    value = $('#randomness-slider').val();
+    // don't @ me
+    if (value == 1) {
+            value = '1.0';
+    }
+    if (value == 2) {
+            value = '2.0';
+    }
+    TXDNE.waifuSourceURLBase = "https://thisanimedoesnotexist.ai/results/psi-" + value + "/seed";
+    new_psi = value
+    alterWaifuURL(new_psi);
+}
+
+$('#speed-slider').bootstrapSlider({
+    formatter: function(value) {
+            document.getElementById('speed').innerHTML = value;
+    }
+}).on('change', speedSliderChange);
+
+$('#randomness-slider').bootstrapSlider({
+    formatter: function(value) {
+            //value = value + '(higher values encourage the AI to be more creative, original, and messy)';
+            document.getElementById('randomness').innerHTML = value;
+    }
+}).on('change', randomnessSliderChange);
+
+
+all_creativity(true);
+//if (document.getElementById('creative_links').checked) {
+//      all_creativity(true);
+//}
+//
+//$('input[type="checkbox"]').click(function() {
+//        if($(this).prop("checked") == true) {
+//              all_creativity(true);
+//        }
+//        else if($(this).prop("checked") == false) {
+//              all_creativity(false);
+//        }
+//});
+</script>
