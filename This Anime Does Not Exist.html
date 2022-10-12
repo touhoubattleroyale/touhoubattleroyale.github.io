@@ -15,6 +15,7 @@
     <h4 style="text-align: center" class="red">Um bro? Your javascript?</h4>
   </noscript>
   <div id="waifu-quilt"></div>
+  <div id="waifu-quilt2"></div>
   <h2 class="controls">we chillin</h2>
 
   <script>
@@ -26,6 +27,18 @@
       waifuX: 512,
       waifuY: 768,
       waifusPerSecond: 0.1, // this can be customized
+      panTickInterval: 1000 / 60,
+    };
+  </script>
+  <script>
+    TXDNE2 = {
+      waifuSourceURLBase: "img/", // TODO: also make a special thing i guess? for intial direction
+      waifuSourceURLFileExtension: "png",
+      waifuSetSize: 139,
+      waifuQuiltSelector: "#waifu-quilt2",
+      waifuX: 512,
+      waifuY: 768,
+      waifusPerSecond: 0.1,
       panTickInterval: 1000 / 60,
     };
   </script>

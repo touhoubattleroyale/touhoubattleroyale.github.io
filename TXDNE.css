@@ -155,12 +155,20 @@ h1 a:hover {
 /************/
 
 #waifu-quilt {
-  width: calc(100% + 2 * var(--waifu-width));
+  width: calc(var(--waifu-width));
   height: calc(100% + 2 * var(--waifu-height));
   position: fixed;
   top: calc(-0.25 * var(--waifu-height));
   left: calc(-0.25 * var(--waifu-width));
 }
+#waifu-quilt2 {
+  width: calc(var(--waifu-width));
+  height: calc(100% + 2 * var(--waifu-height));
+  position: fixed;
+  top: calc(-0.25 * var(--waifu-height));
+  right: 0; /* TODO: slightly wrong */
+}
+
 /* TODO: greyscale 0.9 for dead ppl */
 .waifu {
   width: var(--waifu-width);
