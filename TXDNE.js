@@ -145,32 +145,32 @@ function addColumn(where, waifuQuilt) {
   if (where == "left") waifuQuilt.gridXOrigin--;
 }
 
-function removeRow(where) {
+function removeRow(where, waifuQuilt) {
   let rowYPosition =
     where == "top"
-      ? TXDNE.waifuQuilt.gridYOrigin
-      : TXDNE.waifuQuilt.gridYOrigin + TXDNE.waifusDown;
-  TXDNE.waifuQuilt
+      ? waifuQuilt.gridYOrigin
+      : waifuQuilt.gridYOrigin + TXDNE.waifusDown;
+  waifuQuilt
     .querySelectorAll(`.waifu-link[data-grid-position-y='${rowYPosition}']`)
     .forEach((waifuLink) => {
       waifuLink.remove();
     });
   TXDNE.waifusDown--;
-  if (where == "top") TXDNE.waifuQuilt.gridYOrigin++;
+  if (where == "top") waifuQuilt.gridYOrigin++;
 }
 
-function removeColumn(where) {
+function removeColumn(where, waifuQuilt) {
   let columnXPosition =
     where == "left"
-      ? TXDNE.waifuQuilt.gridXOrigin
-      : TXDNE.waifuQuilt.gridXOrigin + TXDNE.waifusAcross;
-  TXDNE.waifuQuilt
+      ? waifuQuilt.gridXOrigin
+      : waifuQuilt.gridXOrigin + TXDNE.waifusAcross;
+  waifuQuilt
     .querySelectorAll(`.waifu-link[data-grid-position-x='${columnXPosition}']`)
     .forEach((waifuLink) => {
       waifuLink.remove();
     });
   TXDNE.waifusAcross--;
-  if (where == "left") TXDNE.waifuQuilt.gridXOrigin++;
+  if (where == "left") waifuQuilt.gridXOrigin++;
 }
 
 function updateGrid(waifuQuilt) {
@@ -222,16 +222,16 @@ function updateGrid(waifuQuilt) {
 
     // Remove column, if needed.
     if (gridBounds.left < 0 - 2 * TXDNE.waifuX) {
-      removeColumn("left");
+      removeColumn("left", waifuQuilt);
     } else if (gridBounds.right > 1 + 2 * TXDNE.waifuX) {
-      removeColumn("right");
+      removeColumn("right", waifuQuilt);
     }
 
     // Remove row, if needed.
     if (gridBounds.top < 0 - 2 * TXDNE.waifuY) {
-      removeRow("top");
+      removeRow("top", waifuQuilt);
     } else if (gridBounds.bottom > window.innerHeight + 2 * TXDNE.waifuY) {
-      removeRow("bottom");
+      removeRow("bottom", waifuQuilt);
     }
   }
 
