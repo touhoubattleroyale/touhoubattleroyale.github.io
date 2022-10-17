@@ -105,44 +105,44 @@ function populateGrid(waifuQuilt) {
   }
 }
 
-function addRow(where) {
+function addRow(where, waifuQuilt) {
   for (var j = 0; j < TXDNE.waifusAcross; j++) {
     let newWaifuLink = createWaifu();
-    newWaifuLink.dataset.gridPositionX = j + TXDNE.waifuQuilt.gridXOrigin;
+    newWaifuLink.dataset.gridPositionX = j + waifuQuilt.gridXOrigin;
     newWaifuLink.dataset.gridPositionY =
       where == "bottom"
-        ? TXDNE.waifuQuilt.gridYOrigin + TXDNE.waifusDown
-        : TXDNE.waifuQuilt.gridYOrigin - 1;
+        ? waifuQuilt.gridYOrigin + TXDNE.waifusDown
+        : waifuQuilt.gridYOrigin - 1;
     newWaifuLink.style.left =
       newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
     newWaifuLink.style.top =
       newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
     loadWaifu(newWaifuLink);
-    TXDNE.waifuQuilt.appendChild(newWaifuLink);
+    waifuQuilt.appendChild(newWaifuLink);
   }
   TXDNE.waifusDown++;
-  if (where == "top") TXDNE.waifuQuilt.gridYOrigin--;
+  if (where == "top") waifuQuilt.gridYOrigin--;
 }
 
-function addColumn(where) {
+function addColumn(where, waifuQuilt) {
   for (var k = 0; k < TXDNE.waifusDown; k++) {
     let newWaifuLink = createWaifu();
     newWaifuLink.dataset.gridPositionX =
       where == "right"
-        ? TXDNE.waifuQuilt.gridXOrigin + TXDNE.waifusAcross
-        : TXDNE.waifuQuilt.gridXOrigin - 1;
+        ? waifuQuilt.gridXOrigin + TXDNE.waifusAcross
+        : waifuQuilt.gridXOrigin - 1;
     if (newWaifuLink.dataset.gridPositionX !== 0) continue;
-    newWaifuLink.dataset.gridPositionY = k + TXDNE.waifuQuilt.gridYOrigin;
+    newWaifuLink.dataset.gridPositionY = k + waifuQuilt.gridYOrigin;
     newWaifuLink.style.left =
       newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
     newWaifuLink.style.top =
       newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
     // TODO: not that createWaifu might not actually create the waifu it might die early, so loadWaifu needs to specify who got created in the no repeats list
     loadWaifu(newWaifuLink);
-    TXDNE.waifuQuilt.appendChild(newWaifuLink);
+    waifuQuilt.appendChild(newWaifuLink);
   }
   TXDNE.waifusAcross++;
-  if (where == "left") TXDNE.waifuQuilt.gridXOrigin--;
+  if (where == "left") waifuQuilt.gridXOrigin--;
 }
 
 function removeRow(where) {
@@ -208,16 +208,16 @@ function updateGrid() {
   if (gridNeedsUpdating) {
     // Add column, if needed.
     if (gridBounds.left > 0 - TXDNE.waifuX) {
-      addColumn("left");
+      addColumn("left", TXDNE.waifuQuilt);
     } else if (gridBounds.right < 1 + TXDNE.waifuX) {
-      addColumn("right");
+      addColumn("right", TXDNE.waifuQuilt);
     }
 
     // Add row, if needed.
     if (gridBounds.top > 0 - TXDNE.waifuY) {
-      addRow("top");
+      addRow("top", TXDNE.waifuQuilt);
     } else if (gridBounds.bottom < window.innerHeight + TXDNE.waifuY) {
-      addRow("bottom");
+      addRow("bottom", TXDNE.waifuQuilt);
     }
 
     // Remove column, if needed.
