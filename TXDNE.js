@@ -173,16 +173,16 @@ function removeColumn(where) {
   if (where == "left") TXDNE.waifuQuilt.gridXOrigin++;
 }
 
-function updateGrid() {
-  let leftOfGrid = TXDNE.waifuQuilt
+function updateGrid(waifuQuilt) {
+  let leftOfGrid = waifuQuilt
     .querySelector(
-      `.waifu-link[data-grid-position-x='${TXDNE.waifuQuilt.gridXOrigin}']`
+      `.waifu-link[data-grid-position-x='${waifuQuilt.gridXOrigin}']`
     )
     .getBoundingClientRect().left;
   let rightOfGrid = leftOfGrid + TXDNE.waifusAcross * (TXDNE.waifuX + 1);
-  let topOfGrid = TXDNE.waifuQuilt
+  let topOfGrid = waifuQuilt
     .querySelector(
-      `.waifu-link[data-grid-position-y='${TXDNE.waifuQuilt.gridYOrigin}']`
+      `.waifu-link[data-grid-position-y='${waifuQuilt.gridYOrigin}']`
     )
     .getBoundingClientRect().top;
   let bottomOfGrid = topOfGrid + TXDNE.waifusDown * (TXDNE.waifuY + 1);
@@ -208,16 +208,16 @@ function updateGrid() {
   if (gridNeedsUpdating) {
     // Add column, if needed.
     if (gridBounds.left > 0 - TXDNE.waifuX) {
-      addColumn("left", TXDNE.waifuQuilt);
+      addColumn("left", waifuQuilt);
     } else if (gridBounds.right < 1 + TXDNE.waifuX) {
-      addColumn("right", TXDNE.waifuQuilt);
+      addColumn("right", waifuQuilt);
     }
 
     // Add row, if needed.
     if (gridBounds.top > 0 - TXDNE.waifuY) {
-      addRow("top", TXDNE.waifuQuilt);
+      addRow("top", waifuQuilt);
     } else if (gridBounds.bottom < window.innerHeight + TXDNE.waifuY) {
-      addRow("bottom", TXDNE.waifuQuilt);
+      addRow("bottom", waifuQuilt);
     }
 
     // Remove column, if needed.
@@ -295,7 +295,7 @@ function waifuSetup() {
     TXDNE.pendingXMovement -= xMovement;
     TXDNE.pendingYMovement -= yMovement;
 
-    updateGrid();
+    updateGrid(TXDNE.waifuQuilt);
 
     adjustGridOffsetBy(xMovement, yMovement, TXDNE.waifuQuilt);
   };
@@ -380,7 +380,7 @@ document.addEventListener("keyup", (event) => {
         -1 * (TXDNE.waifuY * (TXDNE.waifusDown - 3)),
         TXDNE.waifuQuilt
       );
-      while (updateGrid());
+      while (updateGrid(TXDNE.waifuQuilt));
       break;
     case "PageUp":
       adjustGridOffsetBy(
@@ -388,7 +388,7 @@ document.addEventListener("keyup", (event) => {
         TXDNE.waifuY * (TXDNE.waifusDown - 3),
         TXDNE.waifuQuilt
       );
-      while (updateGrid());
+      while (updateGrid(TXDNE.waifuQuilt));
       break;
     default:
       if (parseInt(event.key)) {
@@ -434,7 +434,7 @@ window.addEventListener("wheel", (event) => {
     scrollY * TXDNE.waifuY * -0.0625,
     TXDNE.waifuQuilt
   );
-  updateGrid();
+  updateGrid(TXDNE.waifuQuilt);
 });
 
 function flashFadingElement(element) {
