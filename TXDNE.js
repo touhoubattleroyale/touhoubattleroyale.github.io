@@ -78,7 +78,7 @@ function createWaifu() {
   return newWaifuLink;
 }
 
-function populateGrid() {
+function populateGrid(waifuQuilt) {
   /*	Each waifu box is an <img> tag wrapped in an <a> tag.
 		Here we create the boxes and place them on the grid.
 		*/
@@ -87,7 +87,7 @@ function populateGrid() {
     let gridPositionX = Math.floor(i % TXDNE.waifusAcross);
     let gridPositionY = Math.floor(i / TXDNE.waifusAcross);
     if (
-      !TXDNE.waifuQuilt.querySelector(
+      !waifuQuilt.querySelector(
         `[data-grid-position-x='${gridPositionX}'][data-grid-position-y='${gridPositionY}']`
       )
     ) {
@@ -99,7 +99,7 @@ function populateGrid() {
         newWaifuLink.dataset.gridPositionX * (TXDNE.waifuX + 1) + "px";
       newWaifuLink.style.top =
         newWaifuLink.dataset.gridPositionY * (TXDNE.waifuY + 1) + "px";
-      TXDNE.waifuQuilt.appendChild(newWaifuLink);
+      waifuQuilt.appendChild(newWaifuLink);
       loadWaifu(newWaifuLink);
     }
   }
@@ -255,7 +255,7 @@ function waifuSetup() {
 
   recomputeWaifuQuiltParameters();
 
-  populateGrid();
+  populateGrid(TXDNE.waifuQuilt);
 
   TXDNE.waifuQuilt.offsetX = 0;
   TXDNE.waifuQuilt.offsetY = 0;
@@ -468,7 +468,7 @@ window.addEventListener("resize", (_event) => {
   let gridWasScrolling = window.waifuQuiltPanTickTock != null;
   clearInterval(window.waifuQuiltPanTickTock);
   recomputeWaifuQuiltParameters();
-  populateGrid();
+  populateGrid(TXDNE.waifuQuilt);
   if (gridWasScrolling) {
     clearInterval(window.waifuQuiltPanTickTock);
     window.waifuQuiltPanTickTock = setInterval(
