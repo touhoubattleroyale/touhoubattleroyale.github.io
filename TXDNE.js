@@ -41,12 +41,12 @@ function getRandomWaifuID() {
   // TODO: this is where we would prevent recent duplicates
   return rollDie(TXDNE.waifuSetSize) - 1;
 }
-function adjustGridOffsetBy(xOffset, yOffset) {
-  TXDNE.waifuQuilt.offsetX += xOffset;
-  TXDNE.waifuQuilt.offsetY += yOffset;
-  TXDNE.waifuQuilt.style.transform = `translate(${
-    TXDNE.waifuQuilt.offsetX + "px"
-  }, ${TXDNE.waifuQuilt.offsetY + "px"})`;
+function adjustGridOffsetBy(xOffset, yOffset, waifuQuilt) {
+  waifuQuilt.offsetX += xOffset;
+  waifuQuilt.offsetY += yOffset;
+  waifuQuilt.style.transform = `translate(${waifuQuilt.offsetX + "px"}, ${
+    waifuQuilt.offsetY + "px"
+  })`;
 }
 
 //	Recompute grid parameters.
@@ -263,7 +263,7 @@ function waifuSetup() {
 
   let offsetX = 129; // this is exactly right
   let offsetY = 200; // this is good enough, it doesn't matter
-  adjustGridOffsetBy(offsetX, offsetY);
+  adjustGridOffsetBy(offsetX, offsetY, TXDNE.waifuQuilt);
 
   document
     .querySelector("head")
@@ -297,7 +297,7 @@ function waifuSetup() {
 
     updateGrid();
 
-    adjustGridOffsetBy(xMovement, yMovement);
+    adjustGridOffsetBy(xMovement, yMovement, TXDNE.waifuQuilt);
   };
 
   TXDNE.dragging = false;
@@ -375,11 +375,19 @@ document.addEventListener("keyup", (event) => {
       }
       break;
     case "PageDown":
-      adjustGridOffsetBy(0, -1 * (TXDNE.waifuY * (TXDNE.waifusDown - 3)));
+      adjustGridOffsetBy(
+        0,
+        -1 * (TXDNE.waifuY * (TXDNE.waifusDown - 3)),
+        TXDNE.waifuQuilt
+      );
       while (updateGrid());
       break;
     case "PageUp":
-      adjustGridOffsetBy(0, TXDNE.waifuY * (TXDNE.waifusDown - 3));
+      adjustGridOffsetBy(
+        0,
+        TXDNE.waifuY * (TXDNE.waifusDown - 3),
+        TXDNE.waifuQuilt
+      );
       while (updateGrid());
       break;
     default:
@@ -423,7 +431,8 @@ window.addEventListener("wheel", (event) => {
 
   adjustGridOffsetBy(
     scrollX * TXDNE.waifuX * -0.0625,
-    scrollY * TXDNE.waifuY * -0.0625
+    scrollY * TXDNE.waifuY * -0.0625,
+    TXDNE.waifuQuilt
   );
   updateGrid();
 });
