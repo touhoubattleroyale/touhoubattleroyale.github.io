@@ -309,7 +309,7 @@ function waifuSetup() {
 }
 //	Set up the grid.
 waifuSetup();
-//	Add the ‘hidden’ class to the headings, so they’ll fade out slowly.
+//	Add the ‘hidden’ class to the headings, so they’ll fade out slowly. TODO: probably not tbh
 setTimeout(() => {
   // removed h2 temporarily
   document
