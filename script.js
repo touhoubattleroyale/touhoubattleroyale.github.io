@@ -119,6 +119,11 @@ function generateGame() {
     deathTimes.push(int);
   }
   deathTimes.sort((a, b) => a - b);
+  const result = [];
+  for (let i = 0; i < players.length - 1; i++) {
+    // TODO:
+  }
+  return result;
 }
 
 function shuffleArray(array, usePrng = false) {
@@ -179,7 +184,9 @@ window.onload = function () {
   var timeToNextGame = secondsToNextGame();
   startTimer(timeToNextGame, document.querySelector("#time"));
   initImages();
-  generateGame();
+  const game = generateGame();
+  // TODO: then set up the triggers to play the game
+  // TODO: then set up the triggers to play the next game (which in turn will set up the triggers to play the next next game)
 };
 
 ///////// rng stuff //////////////
