@@ -121,7 +121,9 @@ function generateGame() {
   deathTimes.sort((a, b) => a - b);
   const result = [];
   for (let i = 0; i < players.length - 1; i++) {
-    // TODO:
+    const victim = players[i];
+    const killer = getSeededRandomInt(i + 1, players.length);
+    result.push({ killer: players[killer], victim, time: deathTimes[i] });
   }
   return result;
 }
@@ -183,6 +185,7 @@ function secondsToNextGame() {
 window.onload = function () {
   var timeToNextGame = secondsToNextGame();
   startTimer(timeToNextGame, document.querySelector("#time"));
+  document.getElementById("alive").innerText = files.length;
   initImages();
   const game = generateGame();
   // TODO: then set up the triggers to play the game
