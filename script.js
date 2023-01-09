@@ -80,6 +80,7 @@ const files = [
   "Yuugi.png",
   "Yuyuko.png",
 ];
+
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -89,7 +90,7 @@ function shuffleArray(array) {
   }
 }
 
-function setupGame() {
+function initImages() {
   const shuffledFiles = [...files];
   shuffleArray(shuffledFiles);
   const middleIndex = Math.ceil(shuffledFiles.length / 2);
@@ -108,6 +109,7 @@ function setupGame() {
     for (let i = 3; i < 5; i++) {
       const img = document.createElement("img");
       img.src = `./img/${file}`;
+      //   img.style = `filter: grayscale(100%);`; TODO: for dead ppl
       document.getElementById(`marquee${i}`).appendChild(img);
     }
   }
@@ -136,8 +138,10 @@ function secondsToNextGame() {
   return 1800 - (Math.round(Date.now() / 1000) % 1800);
 }
 
+// so there are 1800 seconds in a game
+
 window.onload = function () {
   var thirtyMinutes = secondsToNextGame();
   startTimer(thirtyMinutes, document.querySelector("#time"));
-  setupGame();
+  initImages();
 };
