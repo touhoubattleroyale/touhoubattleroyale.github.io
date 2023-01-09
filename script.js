@@ -147,7 +147,6 @@ function startTimer(duration, display) {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
     display.textContent = minutes + ":" + seconds;
-    // TODO: this looks wrong
     if (--timer < 0) {
       timer = 0;
     }
