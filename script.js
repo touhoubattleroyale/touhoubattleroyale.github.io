@@ -1,84 +1,84 @@
 const files = [
-  "Alice.png",
-  "Aunn.png",
-  "Aya.png",
-  "Benben.png",
-  "Byakuren.png",
-  "Chen.png",
-  "Cirno.png",
-  "Clownpiece.png",
-  "Daiyousei.png",
-  "Doremy.png",
-  "Eirin.png",
-  "Eternity Larva.png",
-  "Flandre.png",
-  "Futo.png",
-  "Hatate.png",
-  "Hecatia.png",
-  "Hina.png",
-  "Ichirin.png",
-  "Joon.png",
-  "Junko.png",
-  "Kagerou.png",
-  "Kaguya.png",
-  "Kanako.png",
-  "Kasen.png",
-  "Keine.png",
-  "Koakuma.png",
-  "Kogasa.png",
-  "Koishi.png",
-  "Kokoro.png",
-  "Kutaka.png",
-  "Letty Whiterock.png",
-  "Lunasa.png",
-  "Mamizou.png",
-  "Marisa.png",
-  "Meiling.png",
-  "Miko.png",
-  "Minoriko.png",
-  "Mokou.png",
-  "Momiji.png",
-  "Mystia.png",
-  "Nazrin.png",
-  "Nitori.png",
-  "Nue.png",
-  "Parsee.png",
-  "Patchouli.png",
-  "Raiko.png",
-  "Ran.png",
-  "Reimu.png",
-  "Reisen.png",
-  "Remilia.png",
-  "Ringo.png",
-  "Rin.png",
-  "Rumia.png",
-  "Sagume.png",
-  "Sakuya.png",
-  "Sanae.png",
-  "Satori.png",
-  "Seiga.png",
-  "Seija.png",
-  "Seiran.png",
-  "Sekibanki.png",
-  "Shion.png",
-  "Shou.png",
-  "Suika.png",
-  "Sukuna.png",
-  "Sumireko.png",
-  "Suwako.png",
-  "Tenshi.png",
-  "Tewi.png",
-  "Utsuho.png",
-  "Wakasagihime.png",
-  "Wriggle.png",
-  "Yamame.png",
-  "Yatadera.png",
-  "Yatsuhashi.png",
-  "Yoshika.png",
-  "Youmu.png",
-  "Yukari.png",
-  "Yuugi.png",
-  "Yuyuko.png",
+  "Alice",
+  "Aunn",
+  "Aya",
+  "Benben",
+  "Byakuren",
+  "Chen",
+  "Cirno",
+  "Clownpiece",
+  "Daiyousei",
+  "Doremy",
+  "Eirin",
+  "Eternity Larva",
+  "Flandre",
+  "Futo",
+  "Hatate",
+  "Hecatia",
+  "Hina",
+  "Ichirin",
+  "Joon",
+  "Junko",
+  "Kagerou",
+  "Kaguya",
+  "Kanako",
+  "Kasen",
+  "Keine",
+  "Koakuma",
+  "Kogasa",
+  "Koishi",
+  "Kokoro",
+  "Kutaka",
+  "Letty Whiterock",
+  "Lunasa",
+  "Mamizou",
+  "Marisa",
+  "Meiling",
+  "Miko",
+  "Minoriko",
+  "Mokou",
+  "Momiji",
+  "Mystia",
+  "Nazrin",
+  "Nitori",
+  "Nue",
+  "Parsee",
+  "Patchouli",
+  "Raiko",
+  "Ran",
+  "Reimu",
+  "Reisen",
+  "Remilia",
+  "Ringo",
+  "Rin",
+  "Rumia",
+  "Sagume",
+  "Sakuya",
+  "Sanae",
+  "Satori",
+  "Seiga",
+  "Seija",
+  "Seiran",
+  "Sekibanki",
+  "Shion",
+  "Shou",
+  "Suika",
+  "Sukuna",
+  "Sumireko",
+  "Suwako",
+  "Tenshi",
+  "Tewi",
+  "Utsuho",
+  "Wakasagihime",
+  "Wriggle",
+  "Yamame",
+  "Yatadera",
+  "Yatsuhashi",
+  "Yoshika",
+  "Youmu",
+  "Yukari",
+  "Yuugi",
+  "Yuyuko",
 ];
 
 const secondsPerGame = 1800; // half an hour
@@ -97,6 +97,11 @@ function createCurrentRNG() {
 }
 
 let currentRng = createCurrentRNG();
+
+function generateGame() {
+  // generate a death order using currentRng
+  // X kills Y, and the timestamp where it happens. Nothing happens in the first 30 seconds, and same for the last 30 sec /
+}
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -118,14 +123,14 @@ function initImages() {
   for (const file of files1) {
     for (let i = 1; i < 3; i++) {
       const img = document.createElement("img");
-      img.src = `./img/${file}`;
+      img.src = `./img/${file}.png`;
       document.getElementById(`marquee${i}`).appendChild(img);
     }
   }
   for (const file of files2) {
     for (let i = 3; i < 5; i++) {
       const img = document.createElement("img");
-      img.src = `./img/${file}`;
+      img.src = `./img/${file}.png`;
       //   img.style = `filter: grayscale(100%);`; TODO: for dead ppl, also give everyone an id
       document.getElementById(`marquee${i}`).appendChild(img);
     }
@@ -139,12 +144,10 @@ function startTimer(duration, display) {
   setInterval(function () {
     minutes = parseInt(timer / 60, 10);
     seconds = parseInt(timer % 60, 10);
-
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
-
     display.textContent = minutes + ":" + seconds;
-
+    // TODO: this looks wrong
     if (--timer < 0) {
       timer = duration;
     }
