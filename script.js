@@ -150,6 +150,7 @@ function initImages() {
     for (let i = 1; i < 3; i++) {
       const img = document.createElement("img");
       img.src = `./img/${file}.png`;
+      img.id = `${file}${i}`
       document.getElementById(`marquee${i}`).appendChild(img);
     }
   }
@@ -157,7 +158,7 @@ function initImages() {
     for (let i = 3; i < 5; i++) {
       const img = document.createElement("img");
       img.src = `./img/${file}.png`;
-      //   img.style = `filter: grayscale(100%);`; TODO: for dead ppl, also give everyone an id
+      img.id = `${file}${i}`
       document.getElementById(`marquee${i}`).appendChild(img);
     }
   }
@@ -192,8 +193,18 @@ function setupEvents(gameEvents) {
     const { killer, victim, time } = event;
     const timeout = time - Date.now();
     setTimeout(() => {
-      console.log(`${killer} kills ${victim}`);
+      const container = document.getElementById("killfeed")
+      const p  = document.createElement("p");
+      p.innerText = `${killer} kills ${victim}`;
+      container.insertBefore(p, container.firstChild)
       alive--;
+      for (let i = 1; i < 5; i++) {
+        console.log(`${victim}${i}`)
+        try {
+        const img = document.getElementById(`${victim}${i}`)
+        img.style = `filter: grayscale(100%);`;}
+        catch {}
+      }
       updateAliveCount();
     }, timeout);
   }
