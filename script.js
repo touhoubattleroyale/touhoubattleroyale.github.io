@@ -149,7 +149,7 @@ function startTimer(duration, display) {
     display.textContent = minutes + ":" + seconds;
     // TODO: this looks wrong
     if (--timer < 0) {
-      timer = duration;
+      timer = 0;
     }
   }, 1000);
 }
