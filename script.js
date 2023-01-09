@@ -89,21 +89,29 @@ function shuffleArray(array) {
   }
 }
 
-const files2 = [...files];
-shuffleArray(files);
-shuffleArray(files2);
+function setupGame() {
+  const shuffledFiles = [...files];
+  shuffleArray(shuffledFiles);
+  const middleIndex = Math.ceil(shuffledFiles.length / 2);
 
-for (const file of files) {
-  for (let i = 1; i < 3; i++) {
-    const img = document.createElement("img");
-    img.src = `./img/${file}`;
-    document.getElementById(`marquee${i}`).appendChild(img);
+  const files1 = shuffledFiles.splice(0, middleIndex);
+  const files2 = shuffledFiles.splice(-middleIndex);
+
+  for (const file of files1) {
+    for (let i = 1; i < 3; i++) {
+      const img = document.createElement("img");
+      img.src = `./img/${file}`;
+      document.getElementById(`marquee${i}`).appendChild(img);
+    }
+  }
+  for (const file of files2) {
+    for (let i = 3; i < 5; i++) {
+      const img = document.createElement("img");
+      img.src = `./img/${file}`;
+      document.getElementById(`marquee${i}`).appendChild(img);
+    }
   }
 }
-for (const file of files2) {
-  for (let i = 3; i < 5; i++) {
-    const img = document.createElement("img");
-    img.src = `./img/${file}`;
-    document.getElementById(`marquee${i}`).appendChild(img);
-  }
-}
+
+// intial load
+setupGame();

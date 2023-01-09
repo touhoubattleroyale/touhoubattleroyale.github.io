@@ -12,7 +12,7 @@
   gap: var(--gap);
 }
 
-.justdont {
+.scrollcontainer {
   width: 33%;
   height: 100vh;
   overflow: hidden;
@@ -55,8 +55,8 @@
 
 /* Enable animation TODO: 7s per image */
 .enable-animation .marquee__content {
-  -webkit-animation: scroll 966s linear infinite;
-  animation: scroll 966s linear infinite;
+  -webkit-animation: scroll 280s linear infinite;
+  animation: scroll 280s linear infinite;
 }
 
 /* Reverse animation */
