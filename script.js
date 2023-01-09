@@ -81,6 +81,7 @@ const files = [
   "Yuyuko",
 ];
 
+let alive = files.length;
 const secondsPerGame = 1800; // half an hour
 
 var customFloor = function (value, roundTo) {
@@ -182,12 +183,30 @@ function secondsToNextGame() {
   return secondsPerGame - (Math.round(Date.now() / 1000) % secondsPerGame);
 }
 
+function updateAliveCount() {
+  document.getElementById("alive").innerText = alive;
+}
+
+function setupEvents(gameEvents) {
+  for (const event of gameEvents) {
+    const { killer, victim, time } = event;
+    const timeout = time - Date.now();
+    setTimeout(() => {
+      console.log(`${killer} kills ${victim}`);
+      alive--;
+      updateAliveCount();
+    }, timeout);
+  }
+}
+
 window.onload = function () {
   var timeToNextGame = secondsToNextGame();
   startTimer(timeToNextGame, document.querySelector("#time"));
-  document.getElementById("alive").innerText = files.length;
+  updateAliveCount();
   initImages();
-  const game = generateGame();
+  const gameEvents = generateGame();
+  setupEvents(gameEvents);
+
   // TODO: then set up the triggers to play the game
   // TODO: then set up the triggers to play the next game (which in turn will set up the triggers to play the next next game)
 };
