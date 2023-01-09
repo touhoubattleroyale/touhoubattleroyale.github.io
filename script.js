@@ -91,6 +91,10 @@ function getLastHalfHourMark() {
   return customFloor(Date.now(), secondsPerGame * 1000);
 }
 
+function getNextHalfHourMark() {
+  return getLastHalfHourMark() + secondsPerGame * 1000;
+}
+
 function createCurrentRNG() {
   const seed = cyrb128(`${getLastHalfHourMark()}`);
   return sfc32(seed[0], seed[1], seed[2], seed[3]);
@@ -100,12 +104,26 @@ let currentRng = createCurrentRNG();
 
 function generateGame() {
   // generate a death order using currentRng
+  const players = [...files];
+  shuffleArray(players, true);
   // X kills Y, and the timestamp where it happens. Nothing happens in the first 30 seconds, and same for the last 30 sec /
+  // generate a series of timestamps for the deaths, then sort that array
+  // ie. generate n - 1 random numbers between
+  const deathTimes = [];
+  const thirtysecondsinMs = 30 * 1000;
+  for (let i = 0; i < players.length - 1; i++) {
+    const int = getSeededRandomInt(
+      getLastHalfHourMark() + thirtysecondsinMs,
+      getNextHalfHourMark() - thirtysecondsinMs
+    );
+    deathTimes.push(int);
+  }
+  deathTimes.sort((a, b) => a - b);
 }
 
-function shuffleArray(array) {
+function shuffleArray(array, usePrng = false) {
   for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
+    var j = Math.floor((usePrng ? currentRng() : Math.random()) * (i + 1));
     var temp = array[i];
     array[i] = array[j];
     array[j] = temp;
@@ -161,6 +179,7 @@ window.onload = function () {
   var timeToNextGame = secondsToNextGame();
   startTimer(timeToNextGame, document.querySelector("#time"));
   initImages();
+  generateGame();
 };
 
 ///////// rng stuff //////////////
@@ -204,4 +223,10 @@ function sfc32(a, b, c, d) {
     c = (c + t) | 0;
     return (t >>> 0) / 4294967296;
   };
+}
+
+function getSeededRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(currentRng() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
