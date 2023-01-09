@@ -132,11 +132,12 @@ function startTimer(duration, display) {
   }, 1000);
 }
 
+function secondsToNextGame() {
+  return 1800 - (Math.round(Date.now() / 1000) % 1800);
+}
+
 window.onload = function () {
-  // TODO: set the timer to something else other than 30 minutes when syncing is a thing
-  var thirtyMinutes = 60 * 30;
+  var thirtyMinutes = secondsToNextGame();
   startTimer(thirtyMinutes, document.querySelector("#time"));
   setupGame();
 };
-
-// intial load
